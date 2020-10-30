@@ -1,0 +1,34 @@
+[
+    {
+        "id":1,
+        "username":"patilvijay41",
+        "password":"123456",
+        "profile":{
+            "fullName":"Vijay Patil",
+            "age":32,
+            "dob":"01 July 1989",
+            "profile_pic":"https://i.pinimg.com/736x/0e/c6/6b/0ec66b439eb296c4f69cc261e44a785b.jpg",
+            "weight":"70kg",
+            "height":"5.6 feet",
+            "education":"Msc",
+            "organization":"xyz",
+            "occupation":"private job"
+        }
+    },
+    {
+        "id":2,
+        "username":"dilipgirase",
+        "password":"123456",
+        "profile":{
+            "fullName":"Dilip Girase",
+            "age":33,
+            "dob":"01 March 1988",
+            "profile_pic":"https://images.pexels.com/photos/220453/pexels-photo-220453.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500",
+            "weight":"65kg",
+            "height":"5.6 feet",
+            "education":"Msc",
+            "organization":"abc",
+            "occupation":"private job"
+        }
+    }
+]

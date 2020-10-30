@@ -1,8 +1,9 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, NgZone } from '@angular/core';
 import { Routes, ActivatedRoute, Router } from '@angular/router';
 import { FormGroup, FormBuilder, FormArray, FormControl, Validators, FormControlName } from '@angular/forms';
-import { HttpClient } from '@angular/common/http';
 declare let alertify:any;
+import { UserService } from '../user.service';
+import { find } from 'rxjs/operators';
 
 @Component({
   selector: 'app-login',
@@ -11,7 +12,11 @@ declare let alertify:any;
 })
 export class LoginComponent implements OnInit {
   loginForm:FormGroup;
-  constructor(private readonly fb: FormBuilder, private route:ActivatedRoute, private router:Router) { 
+  formData:any;
+  userList:any;
+  status:boolean = false;
+  constructor(private readonly fb: FormBuilder, private route:ActivatedRoute, private router:Router,
+    private userService:UserService,private _ngZone:NgZone) { 
     this.loginForm = this.fb.group({
       username:['', Validators.required],
       password:['', Validators.required]
@@ -28,9 +33,23 @@ export class LoginComponent implements OnInit {
   }
 
   submitForm() {
-    console.log(this.loginForm.getRawValue());
-    alertify.success("LoggedIn Successful!");
-    this.router.navigate(['/profile']);
+    this.formData = this.loginForm.getRawValue();
+    var userDetails:any;
+    this.userService.getUserList().subscribe(result => {
+      this.userList = result;
+      userDetails = this.userList.find(data1 => data1.username == this.formData.username );
+      if(userDetails) {
+        localStorage.setItem("userDetails",userDetails);
+        this.router.navigateByUrl('/profile'); 
+        alertify.success("Login successful!");
+      } else {
+        alertify.error("Username or password is incorrect!");
+      }
+    });
+  }
+
+  reditectToProfile() {
+    this.router.navigate(['/profile']); 
   }
 
 }
